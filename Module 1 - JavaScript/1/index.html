@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Community Event Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Our Community</h1>
+            <p>Join us in creating memorable experiences together</p>
+            <button class="cta-button">Explore Events</button>
+        </div>
+    </header>
+
+    <!-- Past Events Carousel -->
+    <section class="events-section">
+        <h2>Past Events</h2>
+        <div class="carousel">
+            <div class="carousel-container">
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/400/300" alt="Community Cleanup">
+                    <h3>Community Cleanup</h3>
+                    <p>Over 100 volunteers joined our annual cleanup drive</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/400/301" alt="Food Festival">
+                    <h3>Food Festival</h3>
+                    <p>Local cuisines and cultural exchange</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/400/302" alt="Music Concert">
+                    <h3>Music Concert</h3>
+                    <p>Local artists performing for the community</p>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <button class="nav-dot active"></button>
+                <button class="nav-dot"></button>
+                <button class="nav-dot"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section class="registration-section">
+        <h2>Register for Upcoming Event</h2>
+        <form class="registration-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="event">Select Event</label>
+                <select id="event" required>
+                    <option value="">Choose an event...</option>
+                    <option value="workshop">Community Workshop - June 15</option>
+                    <option value="festival">Summer Festival - July 1</option>
+                    <option value="concert">Evening Concert - July 10</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">Message (Optional)</label>
+                <textarea id="message" rows="4"></textarea>
+            </div>
+            <button type="submit" class="submit-button">Register Now</button>
+        </form>
+    </section>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
