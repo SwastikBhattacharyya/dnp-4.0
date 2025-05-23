@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2.1 - Bootstrap Directory Structure</title>
+    <!-- Local Bootstrap CSS -->
+    <link href="bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container py-4">
+        <h1>Bootstrap Directory Structure</h1>
+        <p class="lead">Understanding the Bootstrap file organization</p>
+
+        <div class="row mt-4">
+            <!-- CSS Directory -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">CSS Directory</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><code>bootstrap.css</code> - Unminified CSS</li>
+                            <li><code>bootstrap.min.css</code> - Minified CSS</li>
+                            <li><code>bootstrap.css.map</code> - Source map file</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JS Directory -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">JS Directory</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><code>bootstrap.bundle.js</code> - Unminified JS with Popper.js</li>
+                            <li><code>bootstrap.bundle.min.js</code> - Minified JS with Popper.js</li>
+                            <li><code>bootstrap.js</code> - Core JavaScript</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Icons -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="card-title mb-0">Icons (Optional)</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Bootstrap Icons are available as a separate package and include:</p>
+                        <ul class="list-unstyled">
+                            <li>SVG-based icons</li>
+                            <li>Icon fonts</li>
+                            <li>Multiple formats</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local Bootstrap JS -->
+    <script src="bootstrap-4.0.0-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

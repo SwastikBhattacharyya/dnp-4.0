@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 13.1 - Image Gallery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .gallery-item {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+
+        .modal-img {
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .filter-btn.active {
+            background-color: #0d6efd !important;
+            color: white !important;
+        }
+
+        .gallery-item.hidden {
+            display: none;
+        }
+
+        .masonry-grid {
+            display: grid;
+            grid-gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <header class="text-center mb-5">
+            <h1 class="display-4 mb-3">Image Gallery</h1>
+            <p class="lead text-muted">A responsive image gallery with filtering and modal previews</p>
+
+            <!-- Filter Buttons -->
+            <div class="btn-group mb-4" role="group" aria-label="Gallery filters">
+                <button type="button" class="btn btn-outline-primary filter-btn active" data-filter="all">All</button>
+                <button type="button" class="btn btn-outline-primary filter-btn" data-filter="nature">Nature</button>
+                <button type="button" class="btn btn-outline-primary filter-btn"
+                    data-filter="architecture">Architecture</button>
+                <button type="button" class="btn btn-outline-primary filter-btn" data-filter="people">People</button>
+            </div>
+        </header>
+
+        <!-- Gallery Grid -->
+        <div class="masonry-grid">
+            <!-- iPhone Sample Photo -->
+            <div class="gallery-item" data-category="people">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    alt="iPhone Sample" class="img-fluid shadow" data-title="iPhone Sample Photo"
+                    data-description="A sample photo taken with iPhone 6">
+            </div>
+
+            <!-- Nature Images -->
+            <div class="gallery-item" data-category="nature">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    data-title="Forest View" data-description="A beautiful forest landscape">
+            </div>
+            <div class="gallery-item" data-category="nature">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    data-title="Mountain Peak" data-description="Majestic mountain peaks in the morning">
+            </div>
+            <div class="gallery-item" data-category="nature">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    data-title="Ocean Waves" data-description="Peaceful ocean waves at sunset">
+            </div>
+
+            <!-- Architecture Images -->
+            <div class="gallery-item" data-category="architecture">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    class="img-fluid shadow" data-title="Modern Architecture"
+                    data-description="Contemporary building design">
+            </div>
+            <div class="gallery-item" data-category="architecture">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    data-title="City Skyline" data-description="Urban landscape at night">
+            </div>
+            <div class="gallery-item" data-category="architecture">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    class="img-fluid shadow" data-title="Bridge Design"
+                    data-description="Engineering marvel spanning water">
+            </div>
+
+            <!-- People Images -->
+            <div class="gallery-item" data-category="people">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    data-title="Portrait Study" data-description="Candid portrait photography">
+            </div>
+            <div class="gallery-item" data-category="people">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    data-title="Street Life" data-description="Daily life in the city">
+            </div>
+            <div class="gallery-item" data-category="people">
+                <img src="https://images.all-free-download.com/images/graphiclarge/iphone_6_sample_photo_566464.jpg"
+                    data-title="Community" data-description="People gathering together">
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Image Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-0">
+                    <img src="" alt="" class="img-fluid modal-img">
+                    <p class="text-muted mt-3 px-3" id="imageDescription"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-primary" id="downloadBtn" download>Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize modal
+            const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+            const modalTitle = document.getElementById('imageModalLabel');
+            const modalImage = document.querySelector('.modal-img');
+            const modalDescription = document.getElementById('imageDescription');
+            const downloadBtn = document.getElementById('downloadBtn');
+
+            // Gallery item click handler
+            document.querySelectorAll('.gallery-item img').forEach(img => {
+                img.addEventListener('click', function () {
+                    modalTitle.textContent = this.dataset.title;
+                    modalImage.src = this.src;
+                    modalImage.alt = this.alt;
+                    modalDescription.textContent = this.dataset.description;
+                    downloadBtn.href = this.src;
+                    imageModal.show();
+                });
+            });
+
+            // Filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Filter items
+                    const filter = this.dataset.filter;
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Lazy loading images (if browser supports it)
+            if ('loading' in HTMLImageElement.prototype) {
+                document.querySelectorAll('img').forEach(img => {
+                    img.loading = 'lazy';
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

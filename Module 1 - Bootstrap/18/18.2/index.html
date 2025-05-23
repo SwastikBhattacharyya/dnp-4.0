@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 18.2 - Responsive Patterns</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        .pattern-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border-radius: 1rem;
+            background-color: var(--bs-light);
+        }
+
+        /* Holy Grail Layout */
+        .holy-grail {
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .holy-grail-header,
+        .holy-grail-footer {
+            background-color: rgba(var(--bs-primary-rgb), 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .holy-grail-body {
+            display: flex;
+            flex: 1;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .holy-grail-content {
+            flex: 1;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .holy-grail-nav,
+        .holy-grail-ads {
+            width: 200px;
+            background-color: rgba(var(--bs-primary-rgb), 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Responsive Table */
+        .table-wrapper {
+            position: relative;
+            overflow-x: auto;
+            margin: 0 -1rem;
+        }
+
+        .table-wrapper table {
+            margin: 0 1rem;
+        }
+
+        .sticky-col {
+            position: sticky;
+            left: 1rem;
+            background: white;
+            z-index: 1;
+        }
+
+        /* Responsive Sidebar */
+        .sidebar-wrapper {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            height: 100vh;
+            width: 300px;
+            background: white;
+            z-index: 1045;
+            transition: left 0.3s ease;
+            box-shadow: var(--bs-box-shadow);
+        }
+
+        .sidebar-wrapper.show {
+            left: 0;
+        }
+
+        .sidebar-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1044;
+            display: none;
+        }
+
+        .sidebar-backdrop.show {
+            display: block;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .holy-grail-body {
+                flex-direction: column;
+            }
+
+            .holy-grail-nav,
+            .holy-grail-ads {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4">Responsive Patterns</h1>
+        <p class="lead mb-5">Exploring complex responsive layout patterns with Bootstrap</p>
+
+        <!-- Holy Grail Layout -->
+        <section class="pattern-section">
+            <h2 class="h4 mb-4">Holy Grail Layout</h2>
+            <div class="holy-grail">
+                <header class="holy-grail-header">
+                    <h3 class="h5 mb-0">Header</h3>
+                </header>
+                <div class="holy-grail-body">
+                    <nav class="holy-grail-nav">
+                        <h4 class="h6 mb-3">Navigation</h4>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action">Link 1</a>
+                            <a href="#" class="list-group-item list-group-item-action">Link 2</a>
+                            <a href="#" class="list-group-item list-group-item-action">Link 3</a>
+                        </div>
+                    </nav>
+                    <main class="holy-grail-content">
+                        <h4 class="h6 mb-3">Main Content</h4>
+                        <p>This is the main content area of the holy grail layout. It demonstrates a classic
+                            three-column
+                            layout that collapses responsively on smaller screens.</p>
+                        <p>The layout uses flexbox for modern browsers and provides a seamless experience across
+                            different
+                            screen sizes.</p>
+                    </main>
+                    <aside class="holy-grail-ads">
+                        <h4 class="h6 mb-3">Sidebar</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text">Sidebar content here.</p>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <footer class="holy-grail-footer">
+                    <h3 class="h5 mb-0">Footer</h3>
+                </footer>
+            </div>
+        </section>
+
+        <!-- Responsive Card Grid -->
+        <section class="pattern-section">
+            <h2 class="h4 mb-4">Responsive Card Grid</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card 1</h5>
+                        <p class="card-text">This grid uses CSS Grid with auto-fit and minmax for responsive behavior.
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card 2</h5>
+                        <p class="card-text">Cards will automatically adjust their width based on available space.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card 3</h5>
+                        <p class="card-text">The grid maintains consistent spacing between items.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card 4</h5>
+                        <p class="card-text">Items will wrap to new rows as needed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Responsive Table -->
+        <section class="pattern-section">
+            <h2 class="h4 mb-4">Responsive Table with Sticky First Column</h2>
+            <div class="table-wrapper">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="sticky-col">Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Age</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sticky-col">John Doe</td>
+                            <td>Developer</td>
+                            <td>New York</td>
+                            <td>30</td>
+                            <td>2020/01/01</td>
+                            <td>$100,000</td>
+                            <td><span class="badge bg-success">Active</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sticky-col">Jane Smith</td>
+                            <td>Designer</td>
+                            <td>London</td>
+                            <td>28</td>
+                            <td>2019/05/15</td>
+                            <td>$85,000</td>
+                            <td><span class="badge bg-warning">Pending</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Responsive Sidebar Pattern -->
+        <section class="pattern-section">
+            <h2 class="h4 mb-4">Responsive Sidebar Pattern</h2>
+            <button class="btn btn-primary mb-3" id="toggleSidebar">Toggle Sidebar</button>
+
+            <div class="sidebar-wrapper">
+                <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="h5 mb-0">Sidebar</h3>
+                        <button class="btn-close" id="closeSidebar"></button>
+                    </div>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
+                        <a href="#" class="list-group-item list-group-item-action">Profile</a>
+                        <a href="#" class="list-group-item list-group-item-action">Settings</a>
+                        <a href="#" class="list-group-item list-group-item-action">Help</a>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-backdrop"></div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar functionality
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const sidebar = document.querySelector('.sidebar-wrapper');
+        const backdrop = document.querySelector('.sidebar-backdrop');
+
+        function showSidebar() {
+            sidebar.classList.add('show');
+            backdrop.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideSidebar() {
+            sidebar.classList.remove('show');
+            backdrop.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        toggleSidebar.addEventListener('click', showSidebar);
+        closeSidebar.addEventListener('click', hideSidebar);
+        backdrop.addEventListener('click', hideSidebar);
+    </script>
+</body>
+
+</html>

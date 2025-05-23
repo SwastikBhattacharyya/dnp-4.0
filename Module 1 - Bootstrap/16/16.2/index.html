@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 16.2 - Advanced Animations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Slide Animations */
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.5s ease;
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.5s ease;
+        }
+
+        .slide-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s ease;
+        }
+
+        .slide-in-left.visible,
+        .slide-in-right.visible,
+        .slide-in-up.visible {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        /* Scale Animations */
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s ease;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Rotate Animations */
+        .rotate-in {
+            opacity: 0;
+            transform: rotate(-180deg);
+            transition: all 0.8s ease;
+        }
+
+        .rotate-in.visible {
+            opacity: 1;
+            transform: rotate(0);
+        }
+
+        /* Stagger Animation */
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Parallax Effect */
+        .parallax-section {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .parallax-content {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+
+        /* Interactive Elements */
+        .hover-rotate {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-rotate:hover {
+            transform: rotate(15deg);
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.1);
+        }
+
+        .hover-shake:hover {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        /* Continuous Animations */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .spin {
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section with Parallax -->
+    <div class="parallax-section mb-5" style="background-image: url('https://source.unsplash.com/1600x900/?nature');">
+        <div class="container py-5">
+            <div class="row min-vh-50 align-items-center">
+                <div class="col-md-8 mx-auto text-center">
+                    <div class="parallax-content">
+                        <h1 class="display-4 mb-4">Advanced Animations</h1>
+                        <p class="lead">Exploring complex animations and transitions with Bootstrap</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- Slide Animations -->
+        <section class="mb-5">
+            <h2 class="h4 mb-4">Slide Animations</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card slide-in-left">
+                        <div class="card-body">
+                            <h5 class="card-title">Slide In Left</h5>
+                            <p class="card-text">This card slides in from the left.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card slide-in-up">
+                        <div class="card-body">
+                            <h5 class="card-title">Slide In Up</h5>
+                            <p class="card-text">This card slides in from the bottom.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card slide-in-right">
+                        <div class="card-body">
+                            <h5 class="card-title">Slide In Right</h5>
+                            <p class="card-text">This card slides in from the right.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scale and Rotate Animations -->
+        <section class="mb-5">
+            <h2 class="h4 mb-4">Scale & Rotate Animations</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card scale-in">
+                        <div class="card-body">
+                            <h5 class="card-title">Scale In</h5>
+                            <p class="card-text">This card scales in from a smaller size.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card rotate-in">
+                        <div class="card-body">
+                            <h5 class="card-title">Rotate In</h5>
+                            <p class="card-text">This card rotates into view.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stagger Animation -->
+        <section class="mb-5">
+            <h2 class="h4 mb-4">Stagger Animation</h2>
+            <div class="row g-4" id="staggerContainer">
+                <div class="col-md-3">
+                    <div class="card stagger-item">
+                        <div class="card-body">
+                            <h5 class="card-title">Item 1</h5>
+                            <p class="card-text">Staggered animation item.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stagger-item">
+                        <div class="card-body">
+                            <h5 class="card-title">Item 2</h5>
+                            <p class="card-text">Staggered animation item.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stagger-item">
+                        <div class="card-body">
+                            <h5 class="card-title">Item 3</h5>
+                            <p class="card-text">Staggered animation item.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stagger-item">
+                        <div class="card-body">
+                            <h5 class="card-title">Item 4</h5>
+                            <p class="card-text">Staggered animation item.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Elements -->
+        <section class="mb-5">
+            <h2 class="h4 mb-4">Interactive Elements</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card hover-rotate">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Hover Rotate</h5>
+                            <p class="card-text">Hover to see rotation effect.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card hover-scale">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Hover Scale</h5>
+                            <p class="card-text">Hover to see scale effect.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card hover-shake">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Hover Shake</h5>
+                            <p class="card-text">Hover to see shake effect.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Continuous Animations -->
+        <section>
+            <h2 class="h4 mb-4">Continuous Animations</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card pulse">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pulse Animation</h5>
+                            <p class="card-text">Continuous pulse effect.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card float">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Float Animation</h5>
+                            <p class="card-text">Continuous float effect.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Spin Animation</h5>
+                            <div class="spin d-inline-block">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12" y2="8"></line>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Intersection Observer for slide animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe all animated elements
+            document.querySelectorAll('.slide-in-left, .slide-in-right, .slide-in-up, .scale-in, .rotate-in')
+                .forEach(element => observer.observe(element));
+
+            // Stagger animation
+            const staggerItems = document.querySelectorAll('.stagger-item');
+            const staggerObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.transition = 'all 0.5s ease';
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            staggerItems.forEach(item => staggerObserver.observe(item));
+        });
+    </script>
+</body>
+
+</html>

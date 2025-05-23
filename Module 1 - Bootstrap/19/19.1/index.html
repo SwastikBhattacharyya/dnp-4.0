@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 19.1 - Complex Page Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        /* Layout Styles */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bs-dark);
+            color: var(--bs-light);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.75);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bs-light);
+        }
+
+        /* Header */
+        .main-header {
+            background: white;
+            border-bottom: 1px solid var(--bs-border-color);
+            padding: 1rem 1.5rem;
+        }
+
+        .search-form {
+            max-width: 400px;
+        }
+
+        /* Content Area */
+        .content-wrapper {
+            flex: 1;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+
+        /* Stats Cards */
+        .stat-card {
+            border: none;
+            border-radius: 1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Activity Feed */
+        .activity-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .activity-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: -1.5rem;
+            width: 2px;
+            background: var(--bs-primary);
+        }
+
+        .activity-item:last-child::before {
+            display: none;
+        }
+
+        .activity-dot {
+            position: absolute;
+            left: -0.5rem;
+            top: 0.25rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--bs-primary);
+            border: 2px solid white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 1045;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .sidebar-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1044;
+                display: none;
+            }
+
+            .sidebar-backdrop.show {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h5 class="mb-0">Dashboard</h5>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav flex-column">
+                    <a href="#" class="nav-link active">
+                        <i class="bi bi-house-door"></i>
+                        Overview
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-graph-up"></i>
+                        Analytics
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-people"></i>
+                        Customers
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-cart"></i>
+                        Orders
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-gear"></i>
+                        Settings
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <button class="btn btn-link d-md-none" id="toggleSidebar">
+                        <i class="bi bi-list fs-4"></i>
+                    </button>
+                    <form class="search-form d-none d-md-block">
+                        <div class="input-group">
+                            <span class="input-group-text border-0 bg-light">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="search" class="form-control border-0 bg-light" placeholder="Search...">
+                        </div>
+                    </form>
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-light position-relative">
+                            <i class="bi bi-bell"></i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                3
+                            </span>
+                        </button>
+                        <div class="dropdown">
+                            <button class="btn btn-light rounded-circle p-1" data-bs-toggle="dropdown">
+                                <img src="https://source.unsplash.com/100x100/?portrait" alt="User"
+                                    class="rounded-circle" width="32" height="32">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Page Title -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="h3 mb-0">Dashboard Overview</h1>
+                        <div class="btn-group">
+                            <button class="btn btn-light">
+                                <i class="bi bi-download me-2"></i>Export
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="bi bi-plus-lg me-2"></i>New Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-3">
+                            <div class="card stat-card bg-primary text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="card-subtitle mb-2">Total Sales</h6>
+                                            <h2 class="card-title mb-0">$24,500</h2>
+                                        </div>
+                                        <div class="fs-1 opacity-50">
+                                            <i class="bi bi-currency-dollar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card stat-card bg-success text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="card-subtitle mb-2">New Customers</h6>
+                                            <h2 class="card-title mb-0">145</h2>
+                                        </div>
+                                        <div class="fs-1 opacity-50">
+                                            <i class="bi bi-people"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card stat-card bg-warning text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="card-subtitle mb-2">Pending Orders</h6>
+                                            <h2 class="card-title mb-0">32</h2>
+                                        </div>
+                                        <div class="fs-1 opacity-50">
+                                            <i class="bi bi-clock"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card stat-card bg-info text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="card-subtitle mb-2">Total Products</h6>
+                                            <h2 class="card-title mb-0">450</h2>
+                                        </div>
+                                        <div class="fs-1 opacity-50">
+                                            <i class="bi bi-box"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content Area -->
+                    <div class="row g-4">
+                        <!-- Chart Section -->
+                        <div class="col-lg-8">
+                            <div class="card h-100">
+                                <div class="card-header bg-transparent">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Sales Overview</h5>
+                                        <div class="dropdown">
+                                            <button class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
+                                                This Month
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#">Last Week</a></li>
+                                                <li><a class="dropdown-item" href="#">Last Month</a></li>
+                                                <li><a class="dropdown-item" href="#">Last Year</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Chart would go here -->
+                                    <div class="bg-light rounded" style="height: 300px"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Activity Feed -->
+                        <div class="col-lg-4">
+                            <div class="card h-100">
+                                <div class="card-header bg-transparent">
+                                    <h5 class="card-title mb-0">Recent Activity</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="activity-item">
+                                        <span class="activity-dot"></span>
+                                        <div class="mb-1">
+                                            <strong>New Order</strong>
+                                            <small class="text-muted ms-2">2 min ago</small>
+                                        </div>
+                                        <p class="text-muted mb-0">John Doe placed a new order for $250</p>
+                                    </div>
+                                    <div class="activity-item">
+                                        <span class="activity-dot bg-success"></span>
+                                        <div class="mb-1">
+                                            <strong>Payment Received</strong>
+                                            <small class="text-muted ms-2">15 min ago</small>
+                                        </div>
+                                        <p class="text-muted mb-0">Payment received from Invoice #12345</p>
+                                    </div>
+                                    <div class="activity-item">
+                                        <span class="activity-dot bg-warning"></span>
+                                        <div class="mb-1">
+                                            <strong>Stock Alert</strong>
+                                            <small class="text-muted ms-2">1 hour ago</small>
+                                        </div>
+                                        <p class="text-muted mb-0">Product "Widget Pro" is running low on stock</p>
+                                    </div>
+                                    <div class="activity-item">
+                                        <span class="activity-dot bg-info"></span>
+                                        <div class="mb-1">
+                                            <strong>New Customer</strong>
+                                            <small class="text-muted ms-2">2 hours ago</small>
+                                        </div>
+                                        <p class="text-muted mb-0">Jane Smith created a new account</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar Toggle Functionality
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const sidebar = document.querySelector('.sidebar');
+        const backdrop = document.querySelector('.sidebar-backdrop');
+
+        function showSidebar() {
+            sidebar.classList.add('show');
+            backdrop.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideSidebar() {
+            sidebar.classList.remove('show');
+            backdrop.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        toggleSidebar.addEventListener('click', showSidebar);
+        backdrop.addEventListener('click', hideSidebar);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                hideSidebar();
+            }
+        });
+    </script>
+</body>
+
+</html>

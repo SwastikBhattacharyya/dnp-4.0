@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 17.2 - Dark Mode & Theme Switching</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Theme Variables */
+        :root {
+            /* Light Theme Colors */
+            --theme-bg: #ffffff;
+            --theme-text: #1e293b;
+            --theme-border: #e2e8f0;
+            --theme-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        [data-bs-theme="dark"] {
+            /* Dark Theme Colors */
+            --theme-bg: #0f172a;
+            --theme-text: #f1f5f9;
+            --theme-border: #334155;
+            --theme-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+
+            /* Override Bootstrap Dark Theme Colors */
+            --bs-body-bg: var(--theme-bg);
+            --bs-body-color: var(--theme-text);
+            --bs-border-color: var(--theme-border);
+        }
+
+        /* Custom Styles */
+        .theme-card {
+            background: var(--theme-bg);
+            border: 1px solid var(--theme-border);
+            box-shadow: var(--theme-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .theme-switch {
+            width: 60px;
+            height: 30px;
+            background-color: var(--bs-gray-600);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-switch::after {
+            content: '🌞';
+            font-size: 20px;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 26px;
+            height: 26px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        [data-bs-theme="dark"] .theme-switch {
+            background-color: var(--bs-primary);
+        }
+
+        [data-bs-theme="dark"] .theme-switch::after {
+            content: '🌙';
+            transform: translateX(30px);
+        }
+
+        .color-scheme {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s ease;
+        }
+
+        .color-scheme:hover {
+            transform: scale(1.1);
+        }
+
+        .color-scheme.active {
+            border-color: var(--bs-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h1>Theme Customization</h1>
+            <div class="theme-switch" id="themeSwitch" role="button" aria-label="Toggle theme"></div>
+        </div>
+
+        <!-- Theme Controls -->
+        <section class="mb-5 theme-card p-4 rounded-4">
+            <h2 class="h4 mb-4">Theme Controls</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h3 class="h5 mb-3">Color Schemes</h3>
+                    <div class="d-flex gap-3">
+                        <div class="color-scheme active" style="background-color: #6366f1;" data-color="default"
+                            title="Default"></div>
+                        <div class="color-scheme" style="background-color: #10b981;" data-color="green" title="Green">
+                        </div>
+                        <div class="color-scheme" style="background-color: #3b82f6;" data-color="blue" title="Blue">
+                        </div>
+                        <div class="color-scheme" style="background-color: #8b5cf6;" data-color="purple" title="Purple">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="h5 mb-3">Font Size</h3>
+                    <input type="range" class="form-range" id="fontSizeRange" min="12" max="20" value="16">
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme Preview -->
+        <section class="mb-5">
+            <h2 class="h4 mb-4">Theme Preview</h2>
+            <div class="row g-4">
+                <!-- Buttons -->
+                <div class="col-md-6">
+                    <div class="theme-card p-4 rounded-4">
+                        <h3 class="h5 mb-3">Buttons</h3>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button class="btn btn-primary">Primary</button>
+                            <button class="btn btn-secondary">Secondary</button>
+                            <button class="btn btn-success">Success</button>
+                            <button class="btn btn-danger">Danger</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Elements -->
+                <div class="col-md-6">
+                    <div class="theme-card p-4 rounded-4">
+                        <h3 class="h5 mb-3">Form Elements</h3>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Text Input">
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" checked>
+                            <label class="form-check-label">Toggle Switch</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards -->
+                <div class="col-md-6">
+                    <div class="theme-card p-4 rounded-4">
+                        <h3 class="h5 mb-3">Card Example</h3>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Card Title</h5>
+                                <p class="card-text">This is a sample card with theme-aware styling.</p>
+                                <a href="#" class="btn btn-primary">Action</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alerts -->
+                <div class="col-md-6">
+                    <div class="theme-card p-4 rounded-4">
+                        <h3 class="h5 mb-3">Alerts</h3>
+                        <div class="alert alert-primary mb-2">Primary Alert</div>
+                        <div class="alert alert-success mb-0">Success Alert</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Preview -->
+        <section>
+            <h2 class="h4 mb-4">Typography Preview</h2>
+            <div class="theme-card p-4 rounded-4">
+                <h1 class="display-4 mb-3">Display Heading</h1>
+                <p class="lead mb-4">This is a lead paragraph demonstrating how text looks with the current theme.</p>
+                <p>Regular paragraph text with <a href="#">inline link</a> and <strong>bold text</strong> to showcase
+                    typography.</p>
+                <blockquote class="blockquote">
+                    <p>A well-known quote, contained in a blockquote element.</p>
+                    <footer class="blockquote-footer">Someone famous</footer>
+                </blockquote>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Theme Switch
+            const themeSwitch = document.getElementById('themeSwitch');
+            const html = document.documentElement;
+
+            themeSwitch.addEventListener('click', function () {
+                const currentTheme = html.getAttribute('data-bs-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                html.setAttribute('data-bs-theme', savedTheme);
+            }
+
+            // Color Schemes
+            const colorSchemes = document.querySelectorAll('.color-scheme');
+            const root = document.documentElement;
+
+            const colors = {
+                default: {
+                    primary: '#6366f1',
+                    secondary: '#4f46e5'
+                },
+                green: {
+                    primary: '#10b981',
+                    secondary: '#059669'
+                },
+                blue: {
+                    primary: '#3b82f6',
+                    secondary: '#2563eb'
+                },
+                purple: {
+                    primary: '#8b5cf6',
+                    secondary: '#7c3aed'
+                }
+            };
+
+            colorSchemes.forEach(scheme => {
+                scheme.addEventListener('click', function () {
+                    // Remove active class from all schemes
+                    colorSchemes.forEach(s => s.classList.remove('active'));
+                    // Add active class to clicked scheme
+                    this.classList.add('active');
+
+                    // Apply color scheme
+                    const color = colors[this.dataset.color];
+                    root.style.setProperty('--bs-primary', color.primary);
+                    root.style.setProperty('--bs-secondary', color.secondary);
+
+                    // Save color preference
+                    localStorage.setItem('colorScheme', this.dataset.color);
+                });
+            });
+
+            // Load saved color scheme
+            const savedColorScheme = localStorage.getItem('colorScheme');
+            if (savedColorScheme) {
+                const scheme = document.querySelector(`[data-color="${savedColorScheme}"]`);
+                if (scheme) scheme.click();
+            }
+
+            // Font Size Control
+            const fontSizeRange = document.getElementById('fontSizeRange');
+
+            fontSizeRange.addEventListener('input', function () {
+                root.style.setProperty('--bs-body-font-size', this.value + 'px');
+                localStorage.setItem('fontSize', this.value);
+            });
+
+            // Load saved font size
+            const savedFontSize = localStorage.getItem('fontSize');
+            if (savedFontSize) {
+                fontSizeRange.value = savedFontSize;
+                root.style.setProperty('--bs-body-font-size', savedFontSize + 'px');
+            }
+        });
+    </script>
+</body>
+
+</html>

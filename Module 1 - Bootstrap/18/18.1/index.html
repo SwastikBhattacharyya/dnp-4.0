@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 18.1 - Advanced Layouts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Layout Styles */
+        .layout-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border-radius: 1rem;
+            background-color: var(--bs-light);
+        }
+
+        /* Masonry Grid */
+        .masonry-grid {
+            columns: 3 250px;
+            column-gap: 1.5rem;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Sticky Sidebar */
+        .sticky-sidebar {
+            position: sticky;
+            top: 1rem;
+            height: fit-content;
+        }
+
+        /* Equal Height Cards */
+        .equal-height {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .equal-height .card-body {
+            flex: 1;
+        }
+
+        /* Nested Grid */
+        .nested-grid {
+            background-color: rgba(var(--bs-primary-rgb), 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .nested-item {
+            background-color: rgba(var(--bs-primary-rgb), 0.2);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Table */
+        .table-responsive {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Custom Gutters */
+        .custom-gutters {
+            --bs-gutter-x: 2rem;
+            --bs-gutter-y: 2rem;
+        }
+
+        /* Overlay Content */
+        .overlay-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .overlay-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem 1rem 1rem;
+        }
+
+        /* Responsive Utilities */
+        @media (max-width: 768px) {
+            .masonry-grid {
+                columns: 2 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .masonry-grid {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4">Advanced Layout Techniques</h1>
+        <p class="lead mb-5">Exploring complex layout patterns with Bootstrap</p>
+
+        <!-- Masonry Grid Layout -->
+        <section class="layout-section">
+            <h2 class="h4 mb-4">Masonry Grid Layout</h2>
+            <div class="masonry-grid">
+                <div class="masonry-item">
+                    <div class="card">
+                        <img src="https://source.unsplash.com/600x400/?nature" class="card-img-top" alt="Nature">
+                        <div class="card-body">
+                            <h5 class="card-title">Card Title 1</h5>
+                            <p class="card-text">Short content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <div class="card">
+                        <img src="https://source.unsplash.com/600x800/?architecture" class="card-img-top"
+                            alt="Architecture">
+                        <div class="card-body">
+                            <h5 class="card-title">Card Title 2</h5>
+                            <p class="card-text">Longer content that will make this card taller than others.</p>
+                            <p class="card-text">Additional content to demonstrate masonry layout.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <div class="card">
+                        <img src="https://source.unsplash.com/600x300/?technology" class="card-img-top"
+                            alt="Technology">
+                        <div class="card-body">
+                            <h5 class="card-title">Card Title 3</h5>
+                            <p class="card-text">Medium length content.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sticky Sidebar Layout -->
+        <section class="layout-section">
+            <h2 class="h4 mb-4">Sticky Sidebar Layout</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Main Content -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Main Content</h5>
+                            <p class="card-text">Scroll down to see the sticky sidebar in action.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+                                ut
+                                labore et dolore magna aliqua.</p>
+                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                commodo consequat.</p>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">More Content</h5>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla
+                                pariatur.</p>
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                                anim id est laborum.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- Sticky Sidebar -->
+                    <div class="sticky-sidebar">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Sticky Sidebar</h5>
+                                <p class="card-text">This sidebar will stick to the top while scrolling.</p>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action">Link 1</a>
+                                    <a href="#" class="list-group-item list-group-item-action">Link 2</a>
+                                    <a href="#" class="list-group-item list-group-item-action">Link 3</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equal Height Cards -->
+        <section class="layout-section">
+            <h2 class="h4 mb-4">Equal Height Cards</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card equal-height">
+                        <div class="card-body">
+                            <h5 class="card-title">Short Content</h5>
+                            <p class="card-text">Brief text.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary">Action</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card equal-height">
+                        <div class="card-body">
+                            <h5 class="card-title">Medium Content</h5>
+                            <p class="card-text">This card has more content than the others to demonstrate equal
+                                heights.</p>
+                            <p class="card-text">Additional text here.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary">Action</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card equal-height">
+                        <div class="card-body">
+                            <h5 class="card-title">Short Content</h5>
+                            <p class="card-text">Another brief text.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary">Action</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nested Grid System -->
+        <section class="layout-section">
+            <h2 class="h4 mb-4">Nested Grid System</h2>
+            <div class="nested-grid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="nested-item">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="nested-item mb-0">Nested Col 1</div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="nested-item mb-0">Nested Col 2</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="nested-item">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="nested-item mb-0">Nested Col 3</div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="nested-item mb-0">Nested Col 4</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Gutters -->
+        <section class="layout-section">
+            <h2 class="h4 mb-4">Custom Gutters</h2>
+            <div class="row custom-gutters">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Custom Gutter Card</h5>
+                            <p class="card-text">Card with custom gutter spacing.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Custom Gutter Card</h5>
+                            <p class="card-text">Card with custom gutter spacing.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Custom Gutter Card</h5>
+                            <p class="card-text">Card with custom gutter spacing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overlay Content -->
+        <section class="layout-section">
+            <h2 class="h4 mb-4">Overlay Content</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="overlay-container">
+                        <img src="https://source.unsplash.com/800x400/?landscape" class="img-fluid" alt="Landscape">
+                        <div class="overlay-content">
+                            <h5 class="mb-2">Overlay Title</h5>
+                            <p class="mb-0">Content overlaid on the image with gradient background.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="overlay-container">
+                        <img src="https://source.unsplash.com/800x400/?city" class="img-fluid" alt="City">
+                        <div class="overlay-content">
+                            <h5 class="mb-2">Overlay Title</h5>
+                            <p class="mb-0">Another example of overlay content.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

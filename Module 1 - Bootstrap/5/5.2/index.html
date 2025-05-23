@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 5.2 - Column Reordering</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-4">Column Reordering Example</h2>
+
+        <!-- First Row - Desktop Order -->
+        <div class="row mb-5">
+            <div class="col-md-4 order-md-2 mb-3">
+                <div class="p-4 bg-primary text-white">
+                    <h4>First on Mobile</h4>
+                    <p>This appears second on desktop (order-md-2)</p>
+                </div>
+            </div>
+            <div class="col-md-4 order-md-1 mb-3">
+                <div class="p-4 bg-secondary text-white">
+                    <h4>Second on Mobile</h4>
+                    <p>This appears first on desktop (order-md-1)</p>
+                </div>
+            </div>
+            <div class="col-md-4 order-md-3 mb-3">
+                <div class="p-4 bg-success text-white">
+                    <h4>Third on Mobile</h4>
+                    <p>This appears third on desktop (order-md-3)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Row - Different Orders on Different Breakpoints -->
+        <h3 class="mb-4">Multiple Breakpoint Ordering</h3>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 order-sm-2 order-md-1 mb-3">
+                <div class="p-4 bg-info text-white">
+                    <h4>Content Block A</h4>
+                    <p>Order changes at SM and MD breakpoints</p>
+                    <ul class="mb-0">
+                        <li>Default: First</li>
+                        <li>SM: Second</li>
+                        <li>MD: First</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 order-sm-1 order-md-2 mb-3">
+                <div class="p-4 bg-warning text-dark">
+                    <h4>Content Block B</h4>
+                    <p>Order changes at SM and MD breakpoints</p>
+                    <ul class="mb-0">
+                        <li>Default: Second</li>
+                        <li>SM: First</li>
+                        <li>MD: Second</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 order-sm-3 order-md-3 mb-3">
+                <div class="p-4 bg-danger text-white">
+                    <h4>Content Block C</h4>
+                    <p>Order remains last at all breakpoints</p>
+                    <ul class="mb-0">
+                        <li>Default: Third</li>
+                        <li>SM: Third</li>
+                        <li>MD: Third</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 10.2 - Mega Menu Navbar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .mega-menu {
+            padding: 1rem;
+        }
+
+        .mega-menu .dropdown-menu {
+            width: 100%;
+            margin-top: 0;
+            border-radius: 0;
+        }
+
+        @media (min-width: 992px) {
+            .mega-menu .dropdown-menu {
+                width: 900px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Mega Menu Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">MegaStore</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#megaMenu"
+                aria-controls="megaMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="megaMenu">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <!-- Products Mega Menu -->
+                    <li class="nav-item dropdown mega-menu position-static">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Products
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <!-- Categories Column -->
+                                    <div class="col-lg-3">
+                                        <h5>Categories</h5>
+                                        <hr>
+                                        <div class="nav flex-column">
+                                            <a class="nav-link text-dark" href="#">Electronics</a>
+                                            <a class="nav-link text-dark" href="#">Fashion</a>
+                                            <a class="nav-link text-dark" href="#">Home & Garden</a>
+                                            <a class="nav-link text-dark" href="#">Sports</a>
+                                        </div>
+                                    </div>
+                                    <!-- Featured Products -->
+                                    <div class="col-lg-3">
+                                        <h5>Featured</h5>
+                                        <hr>
+                                        <div class="card mb-3">
+                                            <div class="card-body p-2">
+                                                <h6 class="card-title">New Arrivals</h6>
+                                                <p class="card-text small">Check out our latest products</p>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body p-2">
+                                                <h6 class="card-title">Special Offers</h6>
+                                                <p class="card-text small">Limited time deals</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Brands -->
+                                    <div class="col-lg-3">
+                                        <h5>Top Brands</h5>
+                                        <hr>
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <div class="p-2 border text-center">Brand 1</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="p-2 border text-center">Brand 2</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="p-2 border text-center">Brand 3</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="p-2 border text-center">Brand 4</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Promotions -->
+                                    <div class="col-lg-3">
+                                        <h5>Promotions</h5>
+                                        <hr>
+                                        <div class="alert alert-info mb-2">
+                                            <small>Save 20% on your first order!</small>
+                                        </div>
+                                        <div class="alert alert-warning mb-2">
+                                            <small>Free shipping on orders over $50</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Services Mega Menu -->
+                    <li class="nav-item dropdown mega-menu position-static">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Services
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="container">
+                                <div class="row g-3">
+                                    <div class="col-lg-4">
+                                        <div class="text-center">
+                                            <div class="category-icon">🛠️</div>
+                                            <h5>Repair Services</h5>
+                                            <p class="small">Professional repair for all your devices</p>
+                                            <a href="#" class="btn btn-outline-primary btn-sm">Learn More</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="text-center">
+                                            <div class="category-icon">📦</div>
+                                            <h5>Shipping</h5>
+                                            <p class="small">Fast and reliable delivery options</p>
+                                            <a href="#" class="btn btn-outline-primary btn-sm">View Rates</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="text-center">
+                                            <div class="category-icon">💳</div>
+                                            <h5>Financing</h5>
+                                            <p class="small">Flexible payment options available</p>
+                                            <a href="#" class="btn btn-outline-primary btn-sm">Apply Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <!-- Search Form -->
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Mega Menu Example</h2>
+                <p class="lead">This example demonstrates a mega menu navbar with the following features:</p>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item">Multiple column layouts</li>
+                    <li class="list-group-item">Rich content including cards and alerts</li>
+                    <li class="list-group-item">Responsive design</li>
+                    <li class="list-group-item">Category navigation</li>
+                    <li class="list-group-item">Featured products section</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Usage Tips</h5>
+                        <p class="card-text">Click on the "Products" or "Services" navigation items to see the mega menu
+                            in action.</p>
+                        <p class="card-text">Try resizing the window to see how the menu adapts to different screen
+                            sizes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

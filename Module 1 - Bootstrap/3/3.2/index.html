@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 3.2 - Container and Grid Classes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Main container -->
+    <div class="container">
+        <h2 class="my-4">Grid System Demo</h2>
+
+        <!-- First row with auto-width columns -->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="p-3 bg-primary text-white">Auto Column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-primary text-white">Auto Column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-primary text-white">Auto Column</div>
+            </div>
+        </div>
+
+        <!-- Second row with specific widths -->
+        <div class="row mb-4">
+            <div class="col-12 col-md-6">
+                <div class="p-3 bg-secondary text-white">Half width on MD+</div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="p-3 bg-secondary text-white">Half width on MD+</div>
+            </div>
+        </div>
+
+        <!-- Third row with mixed columns -->
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <div class="p-3 bg-success text-white">25% on MD+</div>
+            </div>
+            <div class="col-6 col-md-6">
+                <div class="p-3 bg-success text-white">50% on MD+</div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="p-3 bg-success text-white">25% on MD+</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

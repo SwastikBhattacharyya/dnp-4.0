@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 12.2 - Multi-step Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .progress {
+            height: 0.5rem;
+        }
+
+        .step-indicator {
+            position: relative;
+            height: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #dee2e6;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            background: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #6c757d;
+        }
+
+        .step.active {
+            border-color: #0d6efd;
+            color: #0d6efd;
+        }
+
+        .step.completed {
+            border-color: #198754;
+            background-color: #198754;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <h2 class="text-center mb-4">Multi-step Registration</h2>
+
+                        <!-- Progress Bar -->
+                        <div class="progress mb-4">
+                            <div class="progress-bar" role="progressbar" style="width: 25%"></div>
+                        </div>
+
+                        <!-- Step Indicators -->
+                        <div class="step-indicator d-flex justify-content-between px-5 mb-5">
+                            <div class="step active">1</div>
+                            <div class="step">2</div>
+                            <div class="step">3</div>
+                            <div class="step">4</div>
+                        </div>
+
+                        <!-- Form Sections -->
+                        <form id="multiStepForm" class="needs-validation" novalidate>
+                            <!-- Step 1: Account Information -->
+                            <div class="form-section active" id="step1">
+                                <h4 class="mb-4">Account Information</h4>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" required>
+                                    <div class="invalid-feedback">Please choose a username.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                    <div class="invalid-feedback">Please enter a valid email.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                    <div class="invalid-feedback">Please enter a password.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                    <div class="invalid-feedback">Passwords must match.</div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Personal Information -->
+                            <div class="form-section" id="step2">
+                                <h4 class="mb-4">Personal Information</h4>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                        <div class="invalid-feedback">Please enter your first name.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                        <div class="invalid-feedback">Please enter your last name.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="birthdate" class="form-label">Date of Birth</label>
+                                        <input type="date" class="form-control" id="birthdate" required>
+                                        <div class="invalid-feedback">Please enter your date of birth.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Gender</label>
+                                        <div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="male"
+                                                    required>
+                                                <label class="form-check-label" for="male">Male</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="female"
+                                                    required>
+                                                <label class="form-check-label" for="female">Female</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="other"
+                                                    required>
+                                                <label class="form-check-label" for="other">Other</label>
+                                            </div>
+                                            <div class="invalid-feedback">Please select your gender.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Contact Information -->
+                            <div class="form-section" id="step3">
+                                <h4 class="mb-4">Contact Information</h4>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                    <div class="invalid-feedback">Please enter your phone number.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" required>
+                                    <div class="invalid-feedback">Please enter your address.</div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="city" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="city" required>
+                                        <div class="invalid-feedback">Please enter your city.</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="state" class="form-label">State</label>
+                                        <select class="form-select" id="state" required>
+                                            <option value="">Choose...</option>
+                                            <option>CA</option>
+                                            <option>NY</option>
+                                            <option>TX</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a state.</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="zip" class="form-label">ZIP</label>
+                                        <input type="text" class="form-control" id="zip" required>
+                                        <div class="invalid-feedback">Please enter your ZIP code.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Review & Submit -->
+                            <div class="form-section" id="step4">
+                                <h4 class="mb-4">Review & Submit</h4>
+                                <div class="alert alert-info">
+                                    Please review your information before submitting.
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="terms" required>
+                                        <label class="form-check-label" for="terms">
+                                            I agree to the terms and conditions
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            You must agree before submitting.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="formSummary" class="mb-4">
+                                    <!-- Summary will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <!-- Navigation Buttons -->
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-secondary" id="prevBtn"
+                                    style="display: none;">Previous</button>
+                                <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                                <button type="submit" class="btn btn-success" id="submitBtn"
+                                    style="display: none;">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let currentStep = 1;
+            const form = document.getElementById('multiStepForm');
+            const sections = document.querySelectorAll('.form-section');
+            const steps = document.querySelectorAll('.step');
+            const progressBar = document.querySelector('.progress-bar');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            function updateStep(step) {
+                // Update form sections
+                sections.forEach(section => section.classList.remove('active'));
+                document.getElementById(`step${step}`).classList.add('active');
+
+                // Update step indicators
+                steps.forEach((s, index) => {
+                    if (index + 1 < step) {
+                        s.classList.add('completed');
+                        s.classList.remove('active');
+                    } else if (index + 1 === step) {
+                        s.classList.add('active');
+                        s.classList.remove('completed');
+                    } else {
+                        s.classList.remove('active', 'completed');
+                    }
+                });
+
+                // Update progress bar
+                progressBar.style.width = `${(step - 1) * 33.33}%`;
+
+                // Update buttons
+                prevBtn.style.display = step === 1 ? 'none' : 'block';
+                nextBtn.style.display = step === 4 ? 'none' : 'block';
+                submitBtn.style.display = step === 4 ? 'block' : 'none';
+            }
+
+            // Next button click handler
+            nextBtn.addEventListener('click', () => {
+                if (validateStep(currentStep)) {
+                    currentStep++;
+                    updateStep(currentStep);
+                    if (currentStep === 4) {
+                        updateSummary();
+                    }
+                }
+            });
+
+            // Previous button click handler
+            prevBtn.addEventListener('click', () => {
+                currentStep--;
+                updateStep(currentStep);
+            });
+
+            // Form submission handler
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateStep(currentStep)) {
+                    alert('Form submitted successfully!');
+                }
+            });
+
+            // Validate current step
+            function validateStep(step) {
+                const currentSection = document.getElementById(`step${step}`);
+                const inputs = currentSection.querySelectorAll('input, select');
+                let isValid = true;
+
+                inputs.forEach(input => {
+                    if (input.hasAttribute('required') && !input.value) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+                });
+
+                return isValid;
+            }
+
+            // Update summary in step 4
+            function updateSummary() {
+                const summary = document.getElementById('formSummary');
+                const formData = new FormData(form);
+                let summaryHTML = '<div class="card"><div class="card-body">';
+
+                formData.forEach((value, key) => {
+                    if (value && key !== 'password' && key !== 'confirmPassword') {
+                        summaryHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+                    }
+                });
+
+                summaryHTML += '</div></div>';
+                summary.innerHTML = summaryHTML;
+            }
+        });
+    </script>
+</body>
+
+</html>

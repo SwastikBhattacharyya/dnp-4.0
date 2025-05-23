@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 15.1 - Advanced Components</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .custom-tooltip {
+            --bs-tooltip-bg: var(--bs-primary);
+        }
+
+        .custom-popover {
+            --bs-popover-max-width: 300px;
+            --bs-popover-border-color: var(--bs-primary);
+            --bs-popover-header-bg: var(--bs-primary);
+            --bs-popover-header-color: var(--bs-white);
+        }
+
+        .alert-custom {
+            background: linear-gradient(45deg, var(--bs-primary), var(--bs-info));
+            color: white;
+            border: none;
+        }
+
+        .component-section {
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+            background-color: var(--bs-light);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4">Advanced Bootstrap Components</h1>
+        <p class="lead mb-5">Exploring advanced tooltips, popovers, and interactive alerts</p>
+
+        <!-- Advanced Tooltips Section -->
+        <div class="component-section">
+            <h2 class="h4 mb-4">Advanced Tooltips</h2>
+            <div class="d-flex gap-3 flex-wrap">
+                <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip" title="This is a custom styled tooltip">
+                    Custom Tooltip
+                </button>
+
+                <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="right"
+                    data-bs-html="true" title="<em>Italic</em> and <strong>bold</strong> content">
+                    HTML Tooltip
+                </button>
+
+                <button type="button" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    data-bs-delay='{"show":500,"hide":100}' title="This tooltip has custom delays">
+                    Delayed Tooltip
+                </button>
+
+                <button type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="left"
+                    data-bs-trigger="hover focus" title="Triggered by hover and focus">
+                    Multi-trigger Tooltip
+                </button>
+            </div>
+        </div>
+
+        <!-- Advanced Popovers Section -->
+        <div class="component-section">
+            <h2 class="h4 mb-4">Advanced Popovers</h2>
+            <div class="d-flex gap-3 flex-wrap">
+                <button type="button" class="btn btn-primary" data-bs-toggle="popover" data-bs-placement="right"
+                    data-bs-custom-class="custom-popover" data-bs-title="Custom Styled Popover"
+                    data-bs-content="This popover has custom styling applied through CSS variables.">
+                    Custom Styled Popover
+                </button>
+
+                <button type="button" class="btn btn-success" data-bs-toggle="popover" data-bs-placement="top"
+                    data-bs-html="true" data-bs-title="HTML Content"
+                    data-bs-content="<em>Italic</em> and <strong>bold</strong> content with <a href='#'>link</a>">
+                    HTML Popover
+                </button>
+
+                <button type="button" class="btn btn-danger" data-bs-toggle="popover" data-bs-placement="bottom"
+                    data-bs-trigger="focus" data-bs-title="Dismissible Popover"
+                    data-bs-content="Click anywhere else to dismiss this popover.">
+                    Dismissible Popover
+                </button>
+            </div>
+        </div>
+
+        <!-- Interactive Alerts Section -->
+        <div class="component-section">
+            <h2 class="h4 mb-4">Interactive Alerts</h2>
+
+            <!-- Custom Gradient Alert -->
+            <div class="alert alert-custom alert-dismissible fade show mb-4" role="alert">
+                <h4 class="alert-heading">Custom Gradient Alert!</h4>
+                <p class="mb-0">This alert uses a custom gradient background with white text.</p>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+
+            <!-- Auto-dismissing Alert -->
+            <div class="alert alert-info alert-dismissible fade show mb-4" role="alert" id="autoDismissAlert">
+                <strong>Auto-dismissing Alert!</strong> This alert will disappear in 5 seconds.
+                <div class="progress mt-2" style="height: 3px;">
+                    <div class="progress-bar" role="progressbar" style="width: 100%"></div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <!-- Interactive Alert with Actions -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">Action Required!</h4>
+                <p>This alert contains interactive elements and requires user action.</p>
+                <hr>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-warning btn-sm">Take Action</button>
+                    <button class="btn btn-outline-warning btn-sm">Learn More</button>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize all tooltips
+        const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltips.forEach(tooltip => new bootstrap.Tooltip(tooltip));
+
+        // Initialize all popovers
+        const popovers = document.querySelectorAll('[data-bs-toggle="popover"]');
+        popovers.forEach(popover => new bootstrap.Popover(popover));
+
+        // Auto-dismissing alert functionality
+        const autoDismissAlert = document.getElementById('autoDismissAlert');
+        if (autoDismissAlert) {
+            const progressBar = autoDismissAlert.querySelector('.progress-bar');
+            const duration = 5000; // 5 seconds
+
+            // Animate progress bar
+            progressBar.style.transition = `width ${duration}ms linear`;
+            setTimeout(() => progressBar.style.width = '0%', 100);
+
+            // Dismiss alert after duration
+            setTimeout(() => {
+                const bsAlert = new bootstrap.Alert(autoDismissAlert);
+                bsAlert.close();
+            }, duration);
+        }
+    </script>
+</body>
+
+</html>
